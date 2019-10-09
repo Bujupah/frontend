@@ -96,11 +96,11 @@ session_start();
                             $("#loader").html("");
                             db.tables.forEach(element => {
                                 db.table(element.name).count(function (count) {
-                                    $("#loader").append("<p>Detected " + element.name + "s : " + count + "</p>");
+                                    $("#loader").append("<p style='font-size: 26px;'>Detected " + element.name + "s : " + count + "</p>");
                                 });
                             });
                             setTimeout(() => {
-                                $(".wrapper").append("<form style='text-align-last: center;' class='form'><button type='submit' onclick='javascript:(function() { window.location = '/iot' })()' >Continue</button></form>");
+                                $(".wrapper").append("<form style='text-align-last: center;' class='form'><button type='button' onclick='gohome();'>Continue</button></form>");
                             }, 500);
                         }
                     }, 500);
@@ -122,6 +122,9 @@ session_start();
             system.forEach(element => {
                 populateAJAX(element);
             });
+        }
+        function gohome(){
+            window.location ="http://localhost/iot";
         }
     </script>
 </body>

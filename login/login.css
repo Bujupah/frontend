@@ -49,7 +49,7 @@
   }
   .wrapper {
       background: rgb(	83, 162, 227);
-      background: linear-gradient(to bottom right, rgb(	83, 162, 227) 0%, rgb(	83, 162, 230) 100%);
+      background: linear-gradient(to bottom right, rgb(179, 179, 179) 0%, rgb(165, 165, 165) 100%);
       position: absolute;
       left: 0;
       width: 100%;
@@ -62,7 +62,7 @@
   }
   .container {
       max-width: 600px;
-      margin: 10% auto;
+      margin: 5% auto;
       padding: 4vh 0;
       height: 400px;
       text-align: center;
@@ -113,7 +113,7 @@
     background-color: white;
     border: 0;
     padding: 10px 15px;
-    color: #53a2e3;
+    color: #424242;
     border-radius: 3px;
     width: 250px;
     cursor: pointer;
@@ -126,7 +126,7 @@
   select {
     text-align-last: center;
     color: white;
-    background: #75b4ea;
+    background: #bcbcbc;
   }
   .bg-bubbles {
     position: absolute;

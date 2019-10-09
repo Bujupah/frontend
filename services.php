@@ -46,9 +46,39 @@ function getSystemData($db,$from){
 }
 
 function saveGateway($db,$id, $label ,$longitude ,$latitude ,$address ,$ip ,$port ,$live_date ,$protocol){
-    $init = "DELETE FROM _gateway";
-    $query = "INSERT INTO _gateway values($id, $label ,$longitude ,$latitude ,$address ,$ip ,$port ,$live_date ,$protocol)";
-    $db->query($init);
+
+    $query = "SELECT count(*) from _gateway";
+    $result = $db->query($query);
+    $res = $result->fetch(PDO::FETCH_ASSOC)['count'];
+
+    if ($res == 1 )
+        $query = "UPDATE public._gateway SET label='$label', longitude=$longitude, latitude=$latitude, address='$address', ip='$ip', port=$port, live_date='$live_date', protocol='$protocol';" ;
+    else
+        $query = "INSERT INTO public._gateway values($id, '$label' ,$longitude ,$latitude ,'$address' ,'$ip' ,$port ,'$live_date' ,'$protocol',null)";
+
+    $db->query($query);
+}
+
+function saveStation($db, $label ,$gateway){
+    $query = "SELECT id FROM _gateway WHERE label='$gateway';";
+    $result = $db->query($query);
+    $res = $result->fetch(PDO::FETCH_ASSOC)['id'];
+    $query = "INSERT INTO public._station(label, _gateway_id) VALUES ('$label', $res);";
+    $db->query($query);
+}
+function saveDatasource($db, $label ,$active, $station){
+    $query = "SELECT id FROM _station WHERE label='$station';";
+    $result = $db->query($query);
+    $res = $result->fetch(PDO::FETCH_ASSOC)['id'];
+    $query = "INSERT INTO public._datasource(label, isactive, _station_id) VALUES ('$label', $active, $res);";
+    $db->query($query);
+}
+
+function saveSensor($db, $label, $name, $tags, $active, $datasource){
+    $query = "SELECT id FROM _datasource WHERE label='$datasource';";
+    $result = $db->query($query);
+    $res = $result->fetch(PDO::FETCH_ASSOC)['id'];
+    $query = "INSERT INTO public._sensor(label, name, tags, isactive, _datasource_id) VALUES ('$label', '$name', '$tags', $active, $res);";
     $db->query($query);
 }
 
